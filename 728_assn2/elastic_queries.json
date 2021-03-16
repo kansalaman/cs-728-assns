@@ -1,0 +1,57 @@
+curl -X GET "localhost:9200/_search?pretty" -H 'Content-Type: application/json' -d'
+{
+  "query": {
+    "regexp": {
+      "text": {
+        "value": ".*demoralised.*"
+      }
+    }
+  }
+}'
+
+
+curl -X GET "localhost:9200/_search?pretty" -H 'Content-Type: application/json' -d'
+{
+  "query": {
+    "query_string": {
+      "query": "oh my god",
+      "default_field": "text"
+    }
+  },
+  "size": 2
+}
+'
+
+curl -X GET "localhost:9200/_search?pretty" -H 'Content-Type: application/json' -d'
+{
+    "query": {
+        "bool": {
+            "must": {
+                "multi_match": {
+                    "operator": "and",
+                    "fields": [
+                        "text"
+                    ],
+                    "query": "oh my God"
+                }
+            }
+        }
+    },
+	“size”: 4
+}'
+
+
+
+
+
+
+curl -X GET "localhost:9200/_search?pretty" -H 'Content-Type: application/json' -d'
+{
+  "query": {
+    "match_phrase": {
+      "text": "baby oil"
+    }
+  },
+  "size": 2
+}
+'
